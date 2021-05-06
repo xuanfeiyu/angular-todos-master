@@ -1,0 +1,94 @@
+<style>
+  .container {
+    margin: 0 auto;
+    width: 400px;
+    margin-top: 100px;
+  }
+
+  .header {
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    background-color: rgb(211, 213, 214);
+  }
+
+  .formbox {
+    background-color: #F5F6F6;
+    padding: 20px 10px;
+  }
+
+  .form-input {
+    width: 70%;
+    border: 1px solid gray;
+    height: 24px;
+    line-height: 28px;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+
+  .btn {
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px gray;
+    width: 80px;
+    border-radius: 5px;
+    height: 28px;
+  }
+
+  .btn-red {
+    color: red;
+  }
+
+  .listbox {
+    border-radius: 10px;
+    border: 1px solid gray;
+    min-height: 50px;
+  }
+
+  .list {
+    list-style: none;
+  }
+
+  .list-item {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+  }
+
+  .btn-right {
+    position: absolute;
+    right: 40px;
+    top: 10px;
+  }
+
+  .doneitem {
+    text-decoration: line-through;
+  }
+</style>
+
+<div class="container">
+  <header class="header">Angular TodoList</header>
+  <main class="main">
+    <div class="formbox">
+      <input #AddTodoInput class="form-input" placeholder="add todo" type="text" />
+      <button (click)="addTodo(AddTodoInput.value)" class="btn btn-red">添加</button>
+    </div>
+    <div class="listbox">
+      <ul class="list">
+        <div @slide *ngIf="total===0">
+          No todo here,input and enter to add a todo!
+        </div>
+        <li @slide *ngFor="let todo of todos | async; trackBy: identify" class="list-item">
+          <input type="checkbox" (click)="checkTodo(todo.id,todo.checked)" />
+
+          <span [ngClass]="{'doneitem':todo.checked}">{{ todo.title }}</span>
+          <button type="button" (click)="deleteTodo(todo.id)" class="btn btn-red btn-right">
+            删除
+          </button>
+        </li>
+
+      </ul>
+    </div>
+  </main>
+</div>
